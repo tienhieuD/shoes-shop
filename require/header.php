@@ -11,27 +11,57 @@
 	</ul>
 </nav>
 <div class='logo'>
-	<a href='/site_home.xhtml'>1216 <p class='slogan'> Nâng niu bàn chân vịt.</p> </a>
+	<a href='/index.php'>MatGiay<p class='slogan'> Shob best shoe in Vitnomsee.</p> </a>
 </div>
-<div class='main-menu'>
-	<a href='/site_1.xhtml'>Giầy thời trang</a>
-	<a href='/site_1.xhtml'>Giầy thể thao</a>
-	<a href='/site_1.xhtml'>Giầy da</a>
-	<a href='/site_1.xhtml'>Giày xăng-đan</a>
-	<a href='/site_1.xhtml'>Giầy lười</a>
+<div class='main-menu' id ="main-menu">
+
+	<?php 
+		require('connect.php');
+		
+		$sqlloaihang = "SELECT * FROM loaihang";
+		$result = $conn->query($sqlloaihang);
+		
+		if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			$maloaihang = $row["MALOAIHANG"];
+			$tenloaihang = $row["TENLOAIHANG"];
+			
+			echo "<a href='#'> $tenloaihang </a>";
+		}
+		} else {
+			echo "0 results";
+		}
+		$conn->close();
+	?>
+	</div>
 	<div class='search'>
 	<input type='text' placeholder='Gõ để tìm kiếm...'/>
 	<button> Tìm </button>
-	</div>
 </div>
 
 <style>
+.btn-group {        font-size: 0;
+    margin-top: 25px;}
+.btn-group a {    border: 1px solid;
+    padding: 5px 12px;
+    font-size: 15px;
+    margin: 2px;
+    border-radius: 2px;}
+.btn-group a:hover {    
+background-color: #78909C;
+    color: #fff;
+    transition: 0.5s;
+    border: 1px solid #607D8B;
+	}
 .search {
 display: inline-block;
     background: #FFF;
     padding: 0;
-    margin: 0;
-    float: right;
+    border: 1px solid #CFD8DC;
+    margin: 10px 10px 0 10px;
+    position: absolute;
+    right: 0;
 }
 .search input[type='text'] {
 	    border: 0;
@@ -55,7 +85,7 @@ background: #FFF;
 .main-menu a {
 	color: #FFF;
     display: inline-block;
-    margin: 6px 10px 0 0px;
+    margin: 6px 10px 6px 0px;
     font-size: 10pt;
     text-transform: uppercase;
     border-right: 1px solid #B0BEC5;
@@ -69,6 +99,5 @@ background: #FFF;
     color: #FFF;
     padding: 5px 20px;
     font-size: 0;
-	    height: 32px;
 }
 </style>

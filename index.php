@@ -2,10 +2,9 @@
 <html>
 
 <head>
-    <title>1216</title>
+    <title>Shop Mặt Giầy</title>
     <?php 
-		require_once("require/libralies.php"); 
-		include("connect.php");
+		require('require/libralies.php'); 
 	?>
 </head>
 
@@ -13,7 +12,7 @@
 	<?php
 		require_once("require/header.php"); 
 	?>
-    <div class="paragraph">
+    <div class="paragraph" id="mark">
 		<?php require_once("require/show-product.php"); ?>
     </div>
 	

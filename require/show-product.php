@@ -1,31 +1,80 @@
 ﻿<?php
-	$sql = "SELECT * FROM mathang";
+	include('connect.php');
+	$trang = isset($_GET['page']) ? $_GET['page'] : 1;
+	$soSpMotTrang = 3;
+	$spBatDau = ($trang-1)*$soSpMotTrang;
+	$tongSoSp = $conn->query("SELECT * FROM mathang")->num_rows;
+	
+	$sql = "SELECT * FROM mathang ORDER BY mahang DESC LIMIT $spBatDau,$soSpMotTrang";
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {
-		// output data of each row
 		while($row = $result->fetch_assoc()) {
 			$mahang = $row["MAHANG"];
 			$tenhang = $row["TENHANG"];
 			$giatien = $row["GIA"];
 			
+			
+			
+			//Đổi sang định dạng tiền
+			function toMoney($number,$devide) {
+				$ungiatien = "";
+				$money = "";
+				for ($i=0; $i<strlen($number); $i++) {
+					$ungiatien = substr($number,$i,1) . $ungiatien;
+				}
+				for ($i=0; $i<strlen($ungiatien); $i++) {
+					$money = substr($ungiatien,$i,1) .  $money;
+					if ($i%3==2 && $i!=strlen($ungiatien)-1) $money = "," .  $money;
+				}
+			}
+			
 			echo "<div class='product-item'>
 				<div class='product-img' style='background-image: url(img/product/$mahang.jpg);'>
-					<div class='product-money'> $giatien VNĐ </div>
+					<div class='product-money'> {$money}đ </div>
 					<div class='product-addtocart'><img src='img/icon/cart.png' height='13'/></div>
 				</div>
-				<div class='product-name'>
+				<a href='require/show-detail.php?masanpham={$mahang}'><div class='product-name'>
 					$tenhang
-				</div>
+				</div></a>
 			</div>";
 		}
-	} else {
+	} else 
+	{
 		echo "0 results";
 	}
+	
+	//Phân trang
+	$tongSoTrang = $tongSoSp / $soSpMotTrang;
+	echo '<div class="btn-group">';
+		for ($i=0; $i<$tongSoTrang; $i++) {
+			$page=$i+1;
+			if ($page != $trang)
+				echo '<a href="index.php?page='.$page.'#main-menu">'.$page.'</a>';
+			else 
+				echo '<a href="index.php?page='.$page.'#main-menu" class="clicked-page">'.$page.'</a>';
+		}
+	echo '</div>';
+	
 	$conn->close();
 ?>
 
 <style>
+
+.btn-group {        font-size: 0;
+    margin-top: 25px;}
+.btn-group a {    border: 1px solid #607D8B;
+    padding: 5px 12px;
+    font-size: 15px;
+    margin: 2px;
+    border-radius: 2px;}
+.btn-group a:hover, .clicked-page {    
+background-color: #78909C;
+    color: #fff;
+    transition: 0.5s;
+    
+	}
+
 .atcart {
 	
 }
@@ -37,7 +86,7 @@
     border-radius: 2px;
     overflow: hidden;
     margin: 5px;
-	cursor: pointer;
+	cursor: default;
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .1), 0 5px 10px 0 rgba(0, 0, 0, .1);
 }
 .product-img{
@@ -87,5 +136,6 @@
     top: 0;
     text-align: center;
 	border-radius: 0 0 3px 0;
+	cursor: pointer;
 }
 </style>

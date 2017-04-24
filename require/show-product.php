@@ -1,141 +1,63 @@
 ﻿<?php
+	function toMoney($giatien)
+	{
+		$ungiatien = "";
+		$money     = "";
+		for ($i = 0; $i < strlen($giatien); $i++) {
+			$ungiatien = substr($giatien, $i, 1) . $ungiatien;
+		}
+		for ($i = 0; $i < strlen($ungiatien); $i++) {
+			$money = substr($ungiatien, $i, 1) . $money;
+			if ($i % 3 == 2 && $i != strlen($ungiatien) - 1)
+				$money = "," . $money;
+		}
+		return $money;
+	}
+
 	include('connect.php');
-	$trang = isset($_GET['page']) ? $_GET['page'] : 1;
+	$trang        = isset($_GET['page']) ? $_GET['page'] : 1;
 	$soSpMotTrang = 3;
-	$spBatDau = ($trang-1)*$soSpMotTrang;
-	$tongSoSp = $conn->query("SELECT * FROM mathang")->num_rows;
-	
-	$sql = "SELECT * FROM mathang ORDER BY mahang DESC LIMIT $spBatDau,$soSpMotTrang";
+	$spBatDau     = ($trang - 1) * $soSpMotTrang;
+	$tongSoSp     = $conn->query("SELECT * FROM mathang")->num_rows;
+
+	$sql    = "SELECT * FROM mathang ORDER BY mahang DESC LIMIT $spBatDau,$soSpMotTrang";
 	$result = $conn->query($sql);
-	
+
 	if ($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) {
-			$mahang = $row["MAHANG"];
+		while ($row = $result->fetch_assoc()) {
+			$mahang  = $row["MAHANG"];
 			$tenhang = $row["TENHANG"];
 			$giatien = $row["GIA"];
 			
-			
-			
 			//Đổi sang định dạng tiền
-			function toMoney($number,$devide) {
-				$ungiatien = "";
-				$money = "";
-				for ($i=0; $i<strlen($number); $i++) {
-					$ungiatien = substr($number,$i,1) . $ungiatien;
-				}
-				for ($i=0; $i<strlen($ungiatien); $i++) {
-					$money = substr($ungiatien,$i,1) .  $money;
-					if ($i%3==2 && $i!=strlen($ungiatien)-1) $money = "," .  $money;
-				}
-			}
+			$money = toMoney($giatien);
 			
 			echo "<div class='product-item'>
-				<div class='product-img' style='background-image: url(img/product/$mahang.jpg);'>
-					<div class='product-money'> {$money}đ </div>
-					<div class='product-addtocart'><img src='img/icon/cart.png' height='13'/></div>
-				</div>
-				<a href='require/show-detail.php?masanpham={$mahang}'><div class='product-name'>
-					$tenhang
-				</div></a>
-			</div>";
+					<div class='product-img' style='background-image: url(img/product/$mahang.jpg);'>
+						<div class='product-money'> {$money}đ </div>
+						<div class='product-addtocart'><img src='img/icon/cart.png' height='13'/></div>
+					</div>
+					<a href='require/show-detail.php?masanpham={$mahang}'><div class='product-name'>
+						$tenhang
+					</div></a>
+				</div>";
 		}
-	} else 
-	{
+	} else {
 		echo "0 results";
 	}
-	
+
 	//Phân trang
 	$tongSoTrang = $tongSoSp / $soSpMotTrang;
 	echo '<div class="btn-group">';
-		for ($i=0; $i<$tongSoTrang; $i++) {
-			$page=$i+1;
-			if ($page != $trang)
-				echo '<a href="index.php?page='.$page.'#main-menu">'.$page.'</a>';
-			else 
-				echo '<a href="index.php?page='.$page.'#main-menu" class="clicked-page">'.$page.'</a>';
-		}
-	echo '</div>';
-	
-	$conn->close();
-?>
-
-<style>
-
-.btn-group {        font-size: 0;
-    margin-top: 25px;}
-.btn-group a {    border: 1px solid #607D8B;
-    padding: 5px 12px;
-    font-size: 15px;
-    margin: 2px;
-    border-radius: 2px;}
-.btn-group a:hover, .clicked-page {    
-background-color: #78909C;
-    color: #fff;
-    transition: 0.5s;
-    
+	for ($i = 0; $i < $tongSoTrang; $i++) {
+		$page = $i + 1;
+		if ($page != $trang)
+			echo '<a href="index.php?page=' . $page . '#main-menu">' . $page . '</a>';
+		else
+			echo '<a href="index.php?page=' . $page . '#main-menu" class="clicked-page">' . $page . '</a>';
 	}
+	echo '</div>';
 
-.atcart {
-	
-}
-.product-item {
-	position: relative;
-    display: inline-block;
-    width: 180px;
-    height: 240px;
-    border-radius: 2px;
-    overflow: hidden;
-    margin: 5px;
-	cursor: default;
-    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .1), 0 5px 10px 0 rgba(0, 0, 0, .1);
-}
-.product-img{
-	position: absolute;
-    top: 0;
-    left: 0;
-    width: 180px;
-    height: 180px;
-	background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.product-money{
-	position: absolute;
-	background: rgba(230, 74, 25, 0.75);
-    font-size: 13px;
-    line-height: 10px;
-    padding: 8px;
-    right: 0;
-    top: 0;
-    color: #FFF;
-	border-radius: 0 0 0 3px;
-}
-.product-name{
-	position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 170px;
-    height: 50px;
-    padding: 5px;
-    background: #90A4AE;
-    color: #fff;
-    font-weight: normal;
-    text-align: center;
-    font-size: 14px;
-    text-transform: uppercase;
-    line-height: 50px;
-}
-.product-addtocart{
-	position: absolute;
-    background: #FF9800;
-    font-size: 10px;
-    line-height: 10px;
-    padding: 3px 5px 3px 3px;
-    left: 0;
-    color: white;
-    top: 0;
-    text-align: center;
-	border-radius: 0 0 3px 0;
-	cursor: pointer;
-}
-</style>
+	$conn->close();
+	unset($trang,$soSpMotTrang,$spBatDau,$tongSoSp,$sql,$result,$tongSoTrang);
+?>

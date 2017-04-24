@@ -1,0 +1,11 @@
+.chan-trang{
+	background-size: contain; 
+	background-position: center; 
+	background-repeat: no-repeat; 
+	background-image: url('../img/css/footer.jpg'); 
+	width: 100%; 
+	height: 330px;
+}
+.email {
+font-size:14px;font-style:italic;line-height: 14px;margin: 0;
+}

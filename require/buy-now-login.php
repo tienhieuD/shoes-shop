@@ -50,7 +50,7 @@
 					$ngungcc=$row["NGUNGCUNGCAP"] == 0 ? "Đang kinh doanh" : "Ngừng kinh doanh";
 				}
 			}
-			echo "Xem sản phẩm " . $tenhang;
+			echo "Mua ngay " . $tenhang;
 		?>
 	</title>
 </head>
@@ -68,41 +68,18 @@
 		</ul>
 	</nav>
 	
-	<table>
-	  <tr>
-		<td><?php echo $tenhang ?></td>
-		<td></td>
-	  </tr>
-	  <tr>
-		<td><?php echo "<img src='../img/product/{$mahang}.jpg'>" ?></td>
-		<td>
-			<ul>
-				<li>Tên giầy: <?php echo $tenhang ?></li>
-				<li>Loại giầy: <?php echo $loaihang ?></li>
-				<li>Nhà cung cấp: <?php echo $nhacc ?></li>
-				<li>Trạng thái: <?php echo $ngungcc ?></li>
-				
-				<li>Giá tiền: <?php echo toMoney($gia) . "đ" ?></li>
-				
-				<form action='buy-now-login.php'>
-				Số lượng mua: <input style='width: 40px' type='number' min='1' value='1' name='soluongmua'/><br/>
-				<input style='display: none' type='text' min='1' value='<?php echo $mahang ?>' name='masanpham'/>
-				<input type='submit' value='Mua hàng ngay'/>	
-				<form>
-				
-				<br/>
-				<a href='#'>Thêm vào giỏ hàng</a>
-			</ul>
-		</td>
-	  </tr>
-	  <tr>
-		<td colspan="2">
-			Chi tiết sản phẩm:<br/>
-			<p name='chitietsp'><?php echo $mota ?></p>
-			
-		</td>
-	  </tr>
-	</table>
+	<form method='post'>
+	<table style='    
+				position: relative;
+				width: 300px;
+				top: 35px;
+				left: 50%;
+				margin-left: -150px;'>
+		<tr><td>Tên đăng nhập:	</td><td><input type='text' name='taikhoan'/></td></tr>
+		<tr><td>Mật khẩu:		</td><td><input type='password' name='matkhau'/></td></tr>
+		<tr><td colspan='2' align='right'><input type='submit' value='Đăng nhập và tiến hành mua'/></td></tr>
+		</table>
+	</form>
 	
     <?php
 		require_once("../require/footer.php"); 

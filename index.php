@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Shop Mặt Giầy</title>
+    <title>Shop Giầy Shoes</title>
     <?php 
 		require('require/libralies.php'); 
 	?>

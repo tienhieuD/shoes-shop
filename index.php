@@ -1,23 +1,25 @@
-﻿<!DOCTYPE html>
+﻿<?php session_start(); ?>
+
+<!DOCTYPE html>
 <html>
 
 <head>
     <title>Shop Giầy Shoes</title>
     <?php 
-		require('require/libralies.php'); 
+		require('libralies.php'); 
 	?>
 </head>
 
 <body>
 	<?php
-		require_once("require/header.php"); 
+		require_once("header.php"); 
 	?>
     <div class="paragraph" id="mark">
-		<?php require_once("require/show-product.php"); ?>
+		<?php require_once("show-product.php"); ?>
     </div>
 	
     <?php
-		require_once("require/footer.php"); 
+		require_once("footer.php"); 
 	?>
 	
 </body>

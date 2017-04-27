@@ -1,11 +1,8 @@
-﻿<!DOCTYPE html>
+﻿<?php session_start(); ?>
+<!DOCTYPE html>
 <html>
 <head>
-	<link rel="STYLESHEET" type="text/css" href="../stylesheet/styles.css" />
-	<link rel="STYLESHEET" type="text/css" href="../stylesheet/footer.css" />
-	<link rel="STYLESHEET" type="text/css" href="../stylesheet/header.css" />
-	<link rel="STYLESHEET" type="text/css" href="../stylesheet/listproduct.css" />
-	<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />  
+	<?php include('libralies.php') ?>
     <title>
 		<?php 
 			function toMoney($giatien)
@@ -23,7 +20,7 @@
 				return $money;
 			}
 		
-			include('../connect.php');
+			include('connect.php');
 			$mahang = $_GET['masanpham'];
 			$tenhang = "";
 			$nhacc = "";
@@ -50,11 +47,11 @@
 					$ngungcc=$row["NGUNGCUNGCAP"] == 0 ? "Đang kinh doanh" : "Ngừng kinh doanh";
 				}
 			}
-			echo "Mua ngay " . $tenhang;
+			echo "Xem sản phẩm " . $tenhang;
 		?>
 	</title>
 </head>
-<body style='margin-top: 40px;'>
+<body>
 	<nav id='nav'>
 		<ul>
 			<li><a href='/index.php'>Home</a>
@@ -68,21 +65,44 @@
 		</ul>
 	</nav>
 	
-	<form method='post'>
-	<table style='    
-				position: relative;
-				width: 300px;
-				top: 35px;
-				left: 50%;
-				margin-left: -150px;'>
-		<tr><td>Tên đăng nhập:	</td><td><input type='text' name='taikhoan'/></td></tr>
-		<tr><td>Mật khẩu:		</td><td><input type='password' name='matkhau'/></td></tr>
-		<tr><td colspan='2' align='right'><input type='submit' value='Đăng nhập và tiến hành mua'/></td></tr>
-		</table>
-	</form>
+	<table>
+	  <tr>
+		<td><?php echo $tenhang ?></td>
+		<td></td>
+	  </tr>
+	  <tr>
+		<td><?php echo "<img src='img/product/{$mahang}.jpg'>" ?></td>
+		<td>
+			<ul>
+				<li>Tên giầy: <?php echo $tenhang ?></li>
+				<li>Loại giầy: <?php echo $loaihang ?></li>
+				<li>Nhà cung cấp: <?php echo $nhacc ?></li>
+				<li>Trạng thái: <?php echo $ngungcc ?></li>
+				
+				<li>Giá tiền: <?php echo toMoney($gia) . "đ" ?></li>
+				
+				<form action='login.php'>
+				Số lượng mua: <input style='width: 40px' type='number' min='1' value='1' name='soluongmua'/><br/>
+				<input style='display: none' type='text' min='1' value='<?php echo $mahang ?>' name='masanpham'/>
+				<input type='submit' value='Mua hàng ngay'/>	
+				<form>
+				
+				<br/>
+				<a href='#'>Thêm vào giỏ hàng</a>
+			</ul>
+		</td>
+	  </tr>
+	  <tr>
+		<td colspan="2">
+			Chi tiết sản phẩm:<br/>
+			<p name='chitietsp'><?php echo $mota ?></p>
+			
+		</td>
+	  </tr>
+	</table>
 	
     <?php
-		require_once("../require/footer.php"); 
+		require_once("footer.php"); 
 	?>
 	
 	<!--Replace bbcode-->
@@ -99,3 +119,5 @@
 </body>
 
 </html>
+
+<?php $conn->close(); ?>

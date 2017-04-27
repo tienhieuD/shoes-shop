@@ -16,7 +16,7 @@
 
 	include('connect.php');
 	$trang        = isset($_GET['page']) ? $_GET['page'] : 1;
-	$soSpMotTrang = 3;
+	$soSpMotTrang = 8;
 	$spBatDau     = ($trang - 1) * $soSpMotTrang;
 	$tongSoSp     = $conn->query("SELECT * FROM mathang")->num_rows;
 
@@ -37,7 +37,7 @@
 						<div class='product-money'> {$money}đ </div>
 						<div class='product-addtocart'><img src='img/icon/cart.png' height='13'/></div>
 					</div>
-					<a href='require/show-detail.php?masanpham={$mahang}'><div class='product-name'>
+					<a href='show-detail.php?masanpham={$mahang}'><div class='product-name'>
 						$tenhang
 					</div></a>
 				</div>";

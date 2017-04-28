@@ -27,12 +27,13 @@
 		
 		$masanpham = isset($_GET['masanpham']) ? $_GET['masanpham'] : '0';
 		$soluongmua = isset($_GET['soluongmua']) ? $_GET['soluongmua'] : '0';
+		$size = isset($_GET['size']) ? $_GET['size'] : '0';
 		
 		//Nếu đã đăng nhập
 		if (isset($_SESSION['sstaikhoan'])) 
 		{
 			if ($masanpham != '0') {
-				$URL="buy-now.php?masanpham=$masanpham&soluongmua=$soluongmua";
+				$URL="buy-now.php?masanpham=$masanpham&soluongmua=$soluongmua&size=$size";
 				header("Location: $URL");
 			}
 			else {
@@ -56,7 +57,7 @@
 				if ($result -> num_rows > 0) {
 					$_SESSION['sstaikhoan'] = $taikhoan;
 					if ($masanpham != '0') {
-						$URL="buy-now.php?masanpham=$masanpham&soluongmua=$soluongmua";
+						$URL="buy-now.php?masanpham=$masanpham&soluongmua=$soluongmua&size=$size";
 						header("Location: $URL");
 					}
 					else {
@@ -67,7 +68,7 @@
 				else  
 				{
 					echo "<script> alert('Sai thông tin đăng nhập!'); </script>";
-					$URL="login.php?masanpham=$masanpham&soluongmua=$soluongmua";
+					$URL="login.php?masanpham=$masanpham&soluongmua=$soluongmua&size=$size";
 					header("Location: $URL");
 				}	
 			}
@@ -81,6 +82,7 @@
 					</table>
 					<input type='hidden' name='soluongmua' value='{$masanpham}'/>
 					<input type='hidden' name='masanpham' value='{$soluongmua}'/>
+					<input type='hidden' name='masanpham' value='{$size}'/>
 				</form>";
 			}
 		}

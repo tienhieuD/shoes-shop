@@ -11,7 +11,7 @@
 	</ul>
 </nav>
 <div class='logo'>
-	<a href='/index.php'>Shoes<p class='slogan'> Shob best shoe, rule the world.</p> </a>
+	<a href='/index.php'>MẶTGIÂY <p class='slogan'> Rule the world.</p> </a>
 </div>
 <div class='main-menu' id ="main-menu">
 

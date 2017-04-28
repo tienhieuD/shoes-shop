@@ -15,6 +15,8 @@ background-color: #78909C;
 .atcart {
 	
 }
+
+
 .product-item {
 	position: relative;
     display: inline-block;
@@ -62,6 +64,7 @@ background-color: #78909C;
     text-transform: uppercase;
     line-height: 50px;
 }
+
 .product-addtocart{
 	position: absolute;
     background: #FF9800;

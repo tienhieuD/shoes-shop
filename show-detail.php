@@ -65,24 +65,47 @@
 		</ul>
 	</nav>
 	
-	<table>
+	<table style="
+		width: 100%;
+		padding: 3%;
+	">
 	  <tr>
-		<td><?php echo $tenhang ?></td>
-		<td></td>
+		<td colspan='2' style="
+			    color: #888;
+				text-align: center;
+				font-size: 26px;
+				font-weight: bold;
+				text-transform: uppercase;
+				display: none;
+		"><?php echo $tenhang ?></td>
 	  </tr>
 	  <tr>
-		<td><?php echo "<img src='img/product/{$mahang}.jpg'>" ?></td>
+		<td style='text-align: right;'>
+			<img src='img/product/<?php echo $mahang ?>.jpg'  style="max-height: 360px;border-radius: 3px;padding-top: 50px;">
+		</td>
 		<td>
-			<ul>
+			<ul style="
+				padding-top: 40px;
+			">
 				<li>Tên giầy: <?php echo $tenhang ?></li>
 				<li>Loại giầy: <?php echo $loaihang ?></li>
 				<li>Nhà cung cấp: <?php echo $nhacc ?></li>
 				<li>Trạng thái: <?php echo $ngungcc ?></li>
-				
 				<li>Giá tiền: <?php echo toMoney($gia) . "đ" ?></li>
 				
 				<form action='login.php'>
-				Số lượng mua: <input style='width: 40px' type='number' min='1' value='1' name='soluongmua'/><br/>
+				Số lượng mua: <input style='width: 40px' type='number' min='1' value='1' name='soluongmua'/> 
+				Size 
+				<select name="size">
+					<option value="38">38
+					</option><option value="38">39
+					</option><option value="40">40
+					</option><option value="41">41
+					</option><option value="42">42
+					</option><option value="43">43
+					</option><option value="44">44
+					</option>
+				</select><br/>
 				<input style='display: none' type='text' min='1' value='<?php echo $mahang ?>' name='masanpham'/>
 				<input type='submit' value='Mua hàng ngay'/>	
 				<form>
@@ -94,8 +117,15 @@
 	  </tr>
 	  <tr>
 		<td colspan="2">
-			Chi tiết sản phẩm:<br/>
-			<p name='chitietsp'><?php echo $mota ?></p>
+			<p style="
+				color: #888;
+				text-align: center;
+				font-size: 26px;
+				font-weight: bold;
+				text-transform: uppercase;
+				padding-top: 50px;
+			">Chi tiết sản phẩm</p>
+			<p name='chitietsp' style='margin: 30px 10%;'><?php echo $mota ?></p>
 			
 		</td>
 	  </tr>

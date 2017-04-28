@@ -16,7 +16,7 @@
 
 	include('connect.php');
 	$trang        = isset($_GET['page']) ? $_GET['page'] : 1;
-	$soSpMotTrang = 8;
+	$soSpMotTrang = 12;
 	$spBatDau     = ($trang - 1) * $soSpMotTrang;
 	$tongSoSp     = $conn->query("SELECT * FROM mathang")->num_rows;
 

@@ -64,7 +64,7 @@
 		else //Trường hợp chưa đăng nhập
 		{
 			//chuyển trang đăng nhập
-			$URL="login.php";
+			$URL="../login.php?cart=asdasdasdsdasd";
 			header("Location: $URL");
 		}
 		

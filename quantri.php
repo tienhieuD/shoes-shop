@@ -1,7 +1,10 @@
-﻿<p style='text-align: right;
+﻿<p style="
+    text-align: right;
     padding: 10px 0;
     font-size: small;
-    font-style: italic;'>
+    font-style: italic;
+    padding-right: 15px;
+    ">
 	<?php
 		include('connect.php');
 		session_start();
@@ -21,6 +24,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<?php require('libralies.php');  ?>
 	<style> table td {vertical-align: top; padding:5px 10px;} 
 	hr {       margin: 0;
     padding: 0;
@@ -41,8 +45,22 @@
 	    color: #fff;
     background: #90A4AE;
     padding: 20px;}
+	
+	body {
+		    font-family: 'Segoe UI Light','Open Sans', 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #424242;
+     max-width: 100%;
+    margin: 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .1), 0 5px 10px 0 rgba(0, 0, 0, .1);
+    position: relative;
+	}
+	
+	body p {margin:0}
+	table {max-width: 90%;}
 	</style>
-	<?php require('libralies.php');  ?>
+	
 </head>
 <body>
 	<a href="#" style="
@@ -64,33 +82,50 @@
 	<a href='#mh'>Quản lý mặt hàng</a>
 	<a href='#lh'>Quản lý loại hàng</a>
 	<a href='#ncc'>Quản lý nhà cung cấp</a>
-	<a href='#nv'>Quản lý nhân viên</a>
-	<div>
+	</div>
 	
-	<div class='noidung'>
+	<div class='noidung' align='center'>
+			<?php
+				if (isset($_GET['hoadondathanhtoan'])) {
+					$sql = "SELECT * FROM dondathang WHERE NGAYCHUYENHANG is NOT NULL ORDER BY SOHOADON DESC";
+					$x="display: none";
+				}
+				else{
+					$sql = "SELECT * FROM dondathang WHERE NGAYCHUYENHANG is NULL ORDER BY SOHOADON DESC";
+					$x=" ";
+				}
+			?>
+	
 		<div id='ddh'>
 			<h2>Đơn đặt hàng</h2>
+			<div class='menu' align='center'>
+				<a href="quantri.php?hoadondathanhtoan=true#ddh">Xem hóa đơn đã thanh toán</a>
+				<a href="quantri.php?#ddh">Xem hóa đơn đang chờ</a>
+			</div>
+			
 			<table class="tg">
 			<tr style="
 				background: #607D8B;
 				color: #FFF;
 			">
 				<th class="tg-uztx">#</th>
+				<th class="tg-uztx">KHÁCH HÀNG</th>
 				<th class="tg-uztx">NGAY ĐẶT</th>
 				<th class="tg-yw4l">NƠI GIAO HÀNG</th>
 				<th class="tg-yw4l">MẶT HÀNG</th>
 				<th class="tg-yw4l">SL</th>
 				<th class="tg-yw4l">GIÁ TRỊ</th>
-				<th class="tg-yw4l">Thao tác</th>
+				<th class="tg-yw4l" style='<?php echo $x ?>'>Thao tác</th>
 			</tr>
 			<?php
-				$sql = "SELECT * FROM dondathang WHERE NGAYCHUYENHANG is NULL ORDER BY SOHOADON DESC";
 				$kq = $conn->query($sql);
 				
 				if ($kq->num_rows > 0)
 				{
 					while($r = $kq->fetch_assoc())
 					{
+						$makh 		= $r['MAKHACHHANG'];
+						$ttkh 		= getThongtinKH($makh);
 						$sohd 		= $r['SOHOADON'];
 						$ngaydh 	= $r['NGAYDATHANG'];
 						$noigh 		= $r['NOIGIAOHANG'];
@@ -103,14 +138,64 @@
 						$tonggia 	= getGiaTri($dsmathang,$dssoluong);
 						echo "<tr>
 								<td class='tg-yw4l'> $sohd</td>
+								<td class='tg-b7b8'> $ttkh</td>
 								<td class='tg-b7b8'> $ngaydh</td>
 								<td class='tg-yw4l'> $noigh</td>
 								<td class='tg-b7b8'> $tenmh</td>
 								<td class='tg-yw4l'> $soluong</td>
 								<td class='tg-b7b8' style='text-align: right;'>$tonggia</td>
-								<td class='tg-yw4l'>
-									<a href='#'>Xác nhận</a><br/>
-									<a href='#'>Hủy</a>
+								<td class='tg-yw4l' style='$x'>
+									<a href='quantri/xacnhan-hd.php?shd=$sohd'>Xác nhận</a><br/>
+									<a href='quantri/xoa-hd.php?shd=$sohd'>Hủy</a>
+								</td>
+							  </tr>";
+					}
+				}
+				else {
+					echo "<tr><td colspan='7'><p align='center'>Không có đơn đặt hàng nào đang đợi!</p></td></tr>";
+				}
+			?>
+			</table>
+		</div>
+		
+		<div id='kh'>
+			<h2>Khách hàng</h2>
+			<table class="tg">
+			<tr style="
+				background: #607D8B;
+				color: #FFF;
+			">
+				<th class="tg-uztx">MAKHACHHANG</th>
+				<th class="tg-yw4l">TENKHACHHANG</th>
+				<th class="tg-uztx">DIACHI</th>
+				<th class="tg-yw4l">EMAIL</th>
+				<th class="tg-uztx">DIENTHOAI</th>
+				<th class="tg-yw4l">GHICHU</th>
+			</tr>
+			<?php
+				$sql = "SELECT * FROM `khachhang`";
+				$kq = $conn->query($sql);
+				if ($kq->num_rows > 0)
+				{
+					while($r = $kq->fetch_assoc())
+					{
+						$ma =  $r['MAKHACHHANG'];
+						$te =  $r['TENKHACHHANG'];
+						$dc =  $r['DIACHI'];
+						$em =  $r['EMAIL'];
+						$mk =  $r['MATKHAU'];
+						$dt =  $r['DIENTHOAI'];
+						$gc =  $r['GHICHU'];
+						
+						echo "<tr>
+								<td class='tg-yw4l'> $ma</td>
+								<td class='tg-b7b8'> $te</td>
+								<td class='tg-yw4l'> $dc</td>
+								<td class='tg-b7b8'> $em</td>
+								<td class='tg-b7b8'> $dt</td>
+								<td class='tg-yw4l'> $gc</td>
+								<td class='tg-b7b8'>
+									<a href='quantri/kh.php?thaotac=xoa'>Xóa</a>
 								</td>
 							  </tr>";
 					}
@@ -119,24 +204,100 @@
 			</table>
 		</div>
 		
-		<div id='kh'>
-			<h2>Khách hàng</h2>
-		</div>
-		
 		<div id='mh'>
 			<h2>Mặt hàng</h2>
 		</div>
 		
 		<div id='lh'>
 			<h2>Loại hàng</h2>
+			
+			<div class='menu' align='center'>
+				<a href="LH.php?thaotac=them">Thêm loại hàng mới</a><br/>
+			</div>
+			
+			<table class="tg">
+			<tr style="
+				background: #607D8B;
+				color: #FFF;
+			">
+				<th class="tg-uztx">#ID</th>
+				<th class="tg-uztx">LOẠI HÀNG</th>
+				<th class="tg-yw4l">THAO TÁC</th>
+			</tr>
+			<?php
+				$sql = "SELECT * FROM `loaihang`";
+				$kq = $conn->query($sql);
+				if ($kq->num_rows > 0)
+				{
+					while($r = $kq->fetch_assoc())
+					{
+						$ma =  $r['MALOAIHANG'];
+						$te =  $r['TENLOAIHANG'];
+						echo "<tr>
+								<td class='tg-yw4l'> $ma</td>
+								<td class='tg-b7b8'> $te</td>
+								<td class='tg-b7b8'>
+									<a href='quantri/LH.php?thaotac=sua'>Sửa</a>
+									<a href='quantri/LH.php?thaotac=xoa'>Xóa</a>
+								</td>
+							  </tr>";
+					}
+				}
+			?>
+			</table>
 		</div>
 		
 		<div id='ncc'>
 			<h2>Nhà cung cấp</h2>
-		</div>
-		
-		<div id='nv'>
-			<h2>Nhân viên</h2>
+			
+			<div class='menu' align='center'>
+				<a href="ncc.php?thaotac=them">Thêm nhà cung cấp mới</a><br/>
+			</div>
+			
+			<table class="tg" style="
+				padding-bottom: 50%;
+			">
+			<tr style="
+				background: #607D8B;
+				color: #FFF;
+			">
+				<th class="tg-uztx">#ID</th>
+				<th class="tg-uztx">NHÀ CUNG CẤP</th>
+				<th class="tg-yw4l">ĐỊA CHỈ</th>
+				<th class="tg-yw4l">ĐIỆN THOẠI</th>
+				<th class="tg-yw4l">FAX</th>
+				<th class="tg-yw4l">EMAIL</th>
+				<th class="tg-yw4l">THAO TÁC</th>
+			</tr>
+			<?php
+				$sql = "SELECT * FROM `nhaccungcap`";
+				$kq = $conn->query($sql);
+				if ($kq->num_rows > 0)
+				{
+					while($r = $kq->fetch_assoc())
+					{
+						$ma =  $r['MANHACUNGCAP'];
+						$te =  $r['TENNHACUNGCAP'];
+						$dc =  $r['DIACHI'];
+						$dt =  $r['DIENTHOAI'];
+						$fx =  $r['FAX'];
+						$em =  $r['EMAIL'];
+						echo "<tr>
+								<td class='tg-yw4l'> $ma</td>
+								<td class='tg-b7b8'> $te</td>
+								<td class='tg-yw4l'> $dc</td>
+								<td class='tg-b7b8'> $dt</td>
+								<td class='tg-yw4l'> $fx</td>
+								<td class='tg-b7b8'> $em</td>
+								<td class='tg-b7b8'>
+									<a href='quantri/ncc.php?thaotac=sua'>Sửa</a>
+									<a href='quantri/ncc.php?thaotac=xoa'>Xóa</a>
+								</td>
+							  </tr>";
+					}
+				}
+			?>
+			</table>
 		</div>
 	</div>
 </body>
@@ -209,6 +370,24 @@
 		}
 		if (count($arrayMaMH)>1)
 			$str .= "<b>Tổng: ". toMoney($tong) . " đ</b><hr/>";;
+		return $str;
+	}
+	
+	function getThongtinKH($makh) {
+		include('connect.php');
+		$sql1 = "select * from khachhang where MAKHACHHANG = '$makh'";
+		$kq = $conn->query($sql1);
+		if ($kq->num_rows > 0)
+		{
+			while ($row = $kq->fetch_assoc()) {
+				$tenkh = $row['TENKHACHHANG'];
+				$diachi = $row['DIACHI'];
+				$dienthoai = $row['DIENTHOAI'];
+				$ghichu = $row['GHICHU'];
+				$makhach = $row['MAKHACHHANG'];
+				$str = "$tenkh<br/>$dienthoai";
+			}
+		}
 		return $str;
 	}
 ?>

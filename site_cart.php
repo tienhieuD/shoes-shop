@@ -107,7 +107,7 @@
 							<tr>
 								<td>$i
 								</td><td class='left'><a href='show-detail.php?masanpham=$masp'><b>$tensp</b></a>
-								</td><td><input id='$i' class='txtSolg' type='number' value='$solg'/>
+								</td><td><input id='$i' class='txtSolg' min='1' type='number' value='$solg'/>
 								</td><td>$size
 								</td><td>$giatien
 								</td><td><small>
@@ -162,7 +162,7 @@
 		<p onclick='xacnhan()' style="
 			display: inline;
 			cursor: pointer;
-		">Xác nhận thông tin và tiến hành thanh toán <?php echo $dsSP; ?></p>
+		">Xác nhận thông tin và tiến hành thanh toán <?php //echo $dsSP; ?></p>
 		<br/><br/>
 		<input type='submit' id='tt' disabled value='Xin vui lòng xác nhận thông tin'/>
 		

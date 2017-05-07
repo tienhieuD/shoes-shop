@@ -97,18 +97,8 @@
 	</title>
 </head>
 <body>
-	<nav id='nav'>
-		<ul>
-			<li><a href='/index.php'>Home</a>
-			</li>
-			<li><a href='/site_new.php'>New</a>
-			</li>
-			<li><a href='/site_sale.php'>Saleoff</a>
-			</li>
-			<li><a href='/site_cart.php'>Giỏ hàng</a>
-			</li>
-		</ul>
-	</nav>
+	<?php include('header.php') ?>
+	<style>.logo,.main-menu,.search{display:none}</style>
 	<style>
 	input[type='text'] {width: 90%}
 	red {color: red;}

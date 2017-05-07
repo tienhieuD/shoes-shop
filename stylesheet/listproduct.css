@@ -24,10 +24,20 @@ background-color: #78909C;
     height: 240px;
     border-radius: 2px;
     overflow: hidden;
-    margin: 5px;
-	cursor: default;
+    margin: 10px 5px;
+	cursor: pointer;
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .1), 0 5px 10px 0 rgba(0, 0, 0, .1);
+	transition: 2.0s;
 }
+
+.product-item:hover .product-name {
+	background: #EF5350;
+}
+
+.product-item:hover .product-img {
+	transition: 2.0s;
+}
+
 .product-img{
 	position: absolute;
     top: 0;
@@ -37,6 +47,7 @@ background-color: #78909C;
 	background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+	transition: 2.0s;
 }
 .product-money{
 	position: absolute;
@@ -63,6 +74,7 @@ background-color: #78909C;
     font-size: 14px;
     text-transform: uppercase;
     line-height: 50px;
+	transition: 0.5s;
 }
 
 .product-addtocart{

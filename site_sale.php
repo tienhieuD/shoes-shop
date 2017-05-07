@@ -3,28 +3,6 @@
 	include('libralies.php');
 	include('connect.php');
 	
-	if(isset($_SESSION['sstaikhoan'])){
-		if (!isset($_GET['12011996'])){
-			$email = $_SESSION['sstaikhoan'];
-			$sql1 = "select * from khachhang where email = '$email'";
-			$kq = $conn->query($sql1);
-			$makhach;
-			if ($kq->num_rows > 0)
-			{
-				while ($row = $kq->fetch_assoc()) {
-					$makhach = $row['MAKHACHHANG'];
-				}
-			}
-			$makh=$makhach*12-1+1996;
-			$URL="hoadon.php?12011996=$makh";
-			header("Location: $URL");
-		}
-	} else {
-		$URL="login.php?hoadon=ahihiddsahdaishdemnbrndbjfdfjsdhfkjhdfkdfhsd";
-		header("Location: $URL");
-	}
-	
-	
 	function toMoney($giatien)
 	{
 		$ungiatien = "";
@@ -101,11 +79,11 @@
 		$sql = "SELECT * FROM dondathang WHERE dondathang.MAKHACHHANG = '$makh' and NGAYCHUYENHANG is NULL";
 		$kq = $conn->query($sql);
 		
-		/* $sohd;
+		$sohd;
 		$ngaydh;
 		$noigh;
 		$dsmathang;
-		$dssoluong; */
+		$dssoluong;
 		
 	}
 ?>
@@ -120,7 +98,7 @@
 	</style>
 </head>
 <body>
-	<?php include('header.php'); ?>
+	<?php include('header.php') ?>
 	<style>.logo,.main-menu,.search{display:none}</style>
 	
 

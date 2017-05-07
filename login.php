@@ -11,18 +11,9 @@
 	</title>
 </head>
 <body>
-	<nav id='nav'>
-		<ul>
-			<li><a href='/index.php'>Home</a>
-			</li>
-			<li><a href='/site_new.php'>New</a>
-			</li>
-			<li><a href='/site_sale.php'>Saleoff</a>
-			</li>
-			<li><a href='/site_cart.php'>Giỏ hàng</a>
-			</li>
-		</ul>
-	</nav>
+	<?php include('header.php') ?>
+	<style>.logo,.main-menu,.search{display:none}</style>
+	
 	<?php 
 		
 		$masanpham = isset($_GET['masanpham']) ? $_GET['masanpham'] : '0';
@@ -61,7 +52,10 @@
 						header("Location: $URL");
 					}
 					else {
-						$URL="index.php";
+						if(isset($_GET['cart'])) $URL="site_cart.php";
+						if(isset($_GET['hoadon'])) $URL="hoadon.php";
+						else					 $URL="index.php";
+			
 						header("Location: $URL");
 					}
 				}

@@ -2,6 +2,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script>
+		function getLinkCart() {
+			var masp = <?php echo $_GET['masanpham']; ?>;
+			var solg = document.getElementById('soluongmua').value;
+			var size = document.getElementById('size').value;
+			return 'chucnang/addtocart.php?masanpham='+masp+'&soluongmua='+solg+'&size='+size;
+		}
+		function goToCart() {
+			window.location.href = getLinkCart();
+		}
+	</script>
+	
 	<?php include('libralies.php') ?>
     <title>
 		<?php 
@@ -52,18 +64,8 @@
 	</title>
 </head>
 <body>
-	<nav id='nav'>
-		<ul>
-			<li><a href='/index.php'>Home</a>
-			</li>
-			<li><a href='/site_new.php'>New</a>
-			</li>
-			<li><a href='/site_sale.php'>Saleoff</a>
-			</li>
-			<li><a href='/site_cart.php'>Giỏ hàng</a>
-			</li>
-		</ul>
-	</nav>
+	<?php include('header.php') ?>
+	<style>.logo,.main-menu,.search{display:none}</style>
 	
 	<table style="
 		width: 100%;
@@ -94,9 +96,9 @@
 				<li>Giá tiền: <?php echo toMoney($gia) . "đ" ?></li>
 				
 				<form action='login.php'>
-				Số lượng mua: <input style='width: 40px' type='number' min='1' value='1' name='soluongmua'/> 
+				Số lượng mua: <input style='width: 40px' type='number' min='1' value='1' name='soluongmua' id='soluongmua'/> 
 				Size 
-				<select name="size">
+				<select name="size" id="size">
 					<option value="38">38
 					</option><option value="38">39
 					</option><option value="40">40
@@ -111,7 +113,7 @@
 				<form>
 				
 				<br/>
-				<a href='#'>Thêm vào giỏ hàng</a>
+				<a href='#' id='addcart' onclick='goToCart()'>Thêm vào giỏ hàng</a>
 			</ul>
 		</td>
 	  </tr>

@@ -99,7 +99,7 @@ body>form {
     content: none
 }
 .paragraph {
-    margin: 0.5in;
+    margin: 1in 0.5in;
     text-align: center;
     word-wrap: break-word
 	font-size: 0;

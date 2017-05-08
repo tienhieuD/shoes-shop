@@ -23,6 +23,7 @@
 				INNER JOIN loaihang on mathang.MALOAIHANG = loaihang.MALOAIHANG
 				WHERE TENHANG like '%{$q}%'
 				OR MAHANG like '%{$q}%'
+				ORDER BY MAHANG DESC
 				";
 		$kq = $conn->query($sql);
 		if ($kq->num_rows > 0)

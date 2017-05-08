@@ -1,6 +1,7 @@
 ﻿<?php
-$target_dir = "upload/";
-$target_file = $target_dir . "1.jpg";//basename($_FILES["fileToUpload"]["name"]);
+$mamh = $_GET['mamh'];
+$target_dir = "../upload/";
+$target_file = $target_dir . "$mamh.jpg";//basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 // Check if image file is a actual image or fake image

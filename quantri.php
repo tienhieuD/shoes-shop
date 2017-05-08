@@ -277,7 +277,9 @@
 			<?php
 				$sql = "SELECT * FROM `mathang` 
 				INNER JOIN nhaccungcap ON mathang.MANHACUNGCAP= nhaccungcap.MANHACUNGCAP
-				INNER JOIN loaihang on mathang.MALOAIHANG = loaihang.MALOAIHANG";
+				INNER JOIN loaihang on mathang.MALOAIHANG = loaihang.MALOAIHANG
+				ORDER BY MAHANG DESC
+				";
 				$kq = $conn->query($sql);
 				if ($kq->num_rows > 0)
 				{

@@ -60,10 +60,52 @@
 	body p {margin:0}
 	table {max-width: 90%;}
 	</style>
+	<script type='text/javascript'>
+	var hienThiTrenID = "showHang";
+	var layTuTrang = "quantri/mathang.php";
 	
+			function showHint(str) {
+				if (str.length==0) {
+					//document.getElementById(hienThiTrenID).innerHTML = '';
+					str = '%20';
+					//return;
+				}
+				
+				xmlHttp = getHTTPObject();
+				
+				if(xmlHttp == null) {
+					alert("xmlHttp-null");
+					return;
+				}
+				
+				var url=layTuTrang;
+				url = url+"?q="+str;
+				xmlHttp.onreadystatechange=stateChanged;
+				xmlHttp.open("GET",url,true);
+				xmlHttp.send(null);
+			}
+			
+			var xmlHttp = getHTTPObject();
+			
+			function getHTTPObject() {
+				var xmlhttp;
+				if (window.XMLHttpRequest) {
+					xmlhttp = new XMLHttpRequest();
+				} else if (window.ActiveXObject) {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				return xmlhttp;
+			}
+			
+			function stateChanged() {
+				if (xmlHttp.readyState==4) {
+					document.getElementById(hienThiTrenID).innerHTML = xmlHttp.responseText;
+				}
+			}
+		</script>
 </head>
 <body>
-	<a href="#" style="
+	<a href="quantri.php" style="
 		background: #607D8B;
 		color: #FFF;
 		padding: 10px 10px;
@@ -204,54 +246,114 @@
 			</table>
 		</div>
 		
+		<!--Mặt hàng-------------------------------------------------------------------->
 		<div id='mh'>
 			<h2>Mặt hàng</h2>
-		</div>
-		
-		<div id='lh'>
-			<h2>Loại hàng</h2>
-			
 			<div class='menu' align='center'>
-				<a href="LH.php?thaotac=them">Thêm loại hàng mới</a><br/>
+				<a href="MH.php?thaotac=them">Thêm mặt hàng mới</a><br/>
 			</div>
+			<div align='center'>
+				<input type="text" id="txt1" placeholder="Lọc sản phẩm" onkeyup="showHint(this.value)" style="WIDTH: 33.8%;">
+			</div><BR/>
+			<div id='showHang'>
 			
 			<table class="tg">
 			<tr style="
 				background: #607D8B;
 				color: #FFF;
 			">
-				<th class="tg-uztx">#ID</th>
-				<th class="tg-uztx">LOẠI HÀNG</th>
+				<th class="tg-uztx">#MAHANG</th>
+				<th class="tg-uztx">TENHANG</th>
+				<th class="tg-yw4l">TENNHACUNGCAP</th>
+				<th class="tg-uztx">TENLOAIHANG</th>
+				<th class="tg-yw4l">DONVITINH</th>
+				<th class="tg-uztx">GIA</th>
+				<th class="tg-yw4l">NGUNGCUNGCAP</th>
 				<th class="tg-yw4l">THAO TÁC</th>
 			</tr>
 			<?php
-				$sql = "SELECT * FROM `loaihang`";
+				$sql = "SELECT * FROM `mathang` 
+				INNER JOIN nhaccungcap ON mathang.MANHACUNGCAP= nhaccungcap.MANHACUNGCAP
+				INNER JOIN loaihang on mathang.MALOAIHANG = loaihang.MALOAIHANG";
 				$kq = $conn->query($sql);
 				if ($kq->num_rows > 0)
 				{
 					while($r = $kq->fetch_assoc())
 					{
-						$ma =  $r['MALOAIHANG'];
-						$te =  $r['TENLOAIHANG'];
+						$ma =  $r['MAHANG'];
+						$te =  $r['TENHANG'];
+						$nc =  $r['TENNHACUNGCAP'];
+						$tl =  $r['TENLOAIHANG'];
+						$dv =  $r['DONVITINH'];
+						$gi =  $r['GIA'];
+						$st =  $r['NGUNGCUNGCAP'];
 						echo "<tr>
 								<td class='tg-yw4l'> $ma</td>
 								<td class='tg-b7b8'> $te</td>
+								<td class='tg-yw4l'> $nc</td>
+								<td class='tg-b7b8'> $tl</td>
+								<td class='tg-yw4l'> $dv</td>
+								<td class='tg-b7b8'> $gi</td>
+								<td class='tg-yw4l'> $st</td>
 								<td class='tg-b7b8'>
-									<a href='quantri/LH.php?thaotac=sua'>Sửa</a>
-									<a href='quantri/LH.php?thaotac=xoa'>Xóa</a>
+									<a href='quantri/MH.php?thaotac=sua'>Sửa</a>
+									<a href='quantri/MH.php?thaotac=xoa'>Xóa</a>
 								</td>
 							  </tr>";
 					}
 				}
 			?>
 			</table>
+			</div>
+		</div>
+		
+		
+		<!--Loại hàng-------------------------------------------------------------------->
+		<div id='lh'>
+			<h2>Loại hàng</h2>
+			
+			<div class='menu' align='center'>
+				<a href="quantri/LH.php?thaotac=them">Thêm loại hàng mới</a><br/>
+			</div>
+			
+			<table class="tg">
+				<tr style="
+					background: #607D8B;
+					color: #FFF;
+				">
+					<th class="tg-uztx">#ID</th>
+					<th class="tg-uztx">LOẠI HÀNG</th>
+					<th class="tg-yw4l">THAO TÁC</th>
+				</tr>
+				<?php
+					$sql = "SELECT * FROM `loaihang`";
+					$kq = $conn->query($sql);
+					if ($kq->num_rows > 0)
+					{
+						while($r = $kq->fetch_assoc())
+						{
+							$ma =  $r['MALOAIHANG'];
+							$te =  $r['TENLOAIHANG'];
+							echo "<tr>
+									<td class='tg-yw4l'> $ma</td>
+									<td class='tg-b7b8'> $te</td>
+									<td class='tg-b7b8'>
+										<a href='quantri/LH.php?thaotac=sua'>Sửa</a>
+										<a href='quantri/LH.php?thaotac=xoa'>Xóa</a>
+									</td>
+								  </tr>";
+						}
+					}
+				?>
+			</table>
+			
 		</div>
 		
 		<div id='ncc'>
 			<h2>Nhà cung cấp</h2>
 			
 			<div class='menu' align='center'>
-				<a href="ncc.php?thaotac=them">Thêm nhà cung cấp mới</a><br/>
+				<a href="quantri/ncc.php?thaotac=them">Thêm nhà cung cấp mới</a><br/>
 			</div>
 			
 			<table class="tg" style="

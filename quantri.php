@@ -137,7 +137,8 @@
 					$x=" ";
 				}
 			?>
-	
+			
+	<!--hoadondathanhtoan-------------------------------------------------------------------->
 		<div id='ddh'>
 			<h2>Đơn đặt hàng</h2>
 			<div class='menu' align='center'>
@@ -200,6 +201,8 @@
 			</table>
 		</div>
 		
+		<!--khách hàng-------------------------------------------------------------------->
+		
 		<div id='kh'>
 			<h2>Khách hàng</h2>
 			<table class="tg">
@@ -237,7 +240,7 @@
 								<td class='tg-b7b8'> $dt</td>
 								<td class='tg-yw4l'> $gc</td>
 								<td class='tg-b7b8'>
-									<a href='quantri/kh.php?thaotac=xoa'>Xóa</a>
+									<a href='quantri/kh.php?thaotac=xoa&ma=$ma'>Xóa</a>
 								</td>
 							  </tr>";
 					}
@@ -250,7 +253,7 @@
 		<div id='mh'>
 			<h2>Mặt hàng</h2>
 			<div class='menu' align='center'>
-				<a href="MH.php?thaotac=them">Thêm mặt hàng mới</a><br/>
+				<a href="quantri/MH.php?thaotac=them">Thêm mặt hàng mới</a><br/>
 			</div>
 			<div align='center'>
 				<input type="text" id="txt1" placeholder="Lọc sản phẩm" onkeyup="showHint(this.value)" style="WIDTH: 33.8%;">
@@ -296,8 +299,8 @@
 								<td class='tg-b7b8'> $gi</td>
 								<td class='tg-yw4l'> $st</td>
 								<td class='tg-b7b8'>
-									<a href='quantri/MH.php?thaotac=sua'>Sửa</a>
-									<a href='quantri/MH.php?thaotac=xoa'>Xóa</a>
+									<a href='quantri/MH.php?thaotac=sua&ma=$ma'>Sửa</a>
+									<a href='quantri/MH.php?thaotac=xoa&ma=$ma'>Xóa</a>
 								</td>
 							  </tr>";
 					}
@@ -338,8 +341,8 @@
 									<td class='tg-yw4l'> $ma</td>
 									<td class='tg-b7b8'> $te</td>
 									<td class='tg-b7b8'>
-										<a href='quantri/LH.php?thaotac=sua'>Sửa</a>
-										<a href='quantri/LH.php?thaotac=xoa'>Xóa</a>
+										<a href='quantri/LH.php?thaotac=sua&ma=$ma'>Sửa</a>
+										<a href='quantri/LH.php?thaotac=xoa&ma=$ma'>Xóa</a>
 									</td>
 								  </tr>";
 						}
@@ -392,8 +395,8 @@
 								<td class='tg-yw4l'> $fx</td>
 								<td class='tg-b7b8'> $em</td>
 								<td class='tg-b7b8'>
-									<a href='quantri/ncc.php?thaotac=sua'>Sửa</a>
-									<a href='quantri/ncc.php?thaotac=xoa'>Xóa</a>
+									<a href='quantri/ncc.php?thaotac=sua&ma=$ma'>Sửa</a>
+									<a href='quantri/ncc.php?thaotac=xoa&ma=$ma'>Xóa</a>
 								</td>
 							  </tr>";
 					}

@@ -45,8 +45,8 @@
 						<td class='tg-b7b8'> $gi</td>
 						<td class='tg-yw4l'> $st</td>
 						<td class='tg-b7b8'>
-							<a href='quantri/MH.php?thaotac=sua'>Sửa</a>
-							<a href='quantri/MH.php?thaotac=xoa'>Xóa</a>
+							<a href='quantri/MH.php?thaotac=sua&ma=$ma'>Sửa</a>
+							<a href='quantri/MH.php?thaotac=xoa&ma=$ma'>Xóa</a>
 						</td>
 					  </tr>";
 			}

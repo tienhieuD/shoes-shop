@@ -22,7 +22,6 @@ header("Pragma: no-cache");
 	<a href='index.php'>Shoes <p class='slogan'> Rule the world.</p> </a>
 </div>
 <div class='main-menu' id ="main-menu">
-
 	<?php 
 		require('connect.php');
 		
@@ -47,7 +46,9 @@ header("Pragma: no-cache");
 		//$conn->close();
 	?>
 	</div>
-	<div class='search'>
-	<input type='text' placeholder='Gõ để tìm kiếm...'/>
-	<button> Tìm </button>
+	<form action="index.php" method="GET">
+		<div class='search'>
+		<input type='text' placeholder='Nhập tên sản phẩm...'/ name="search">
+		<input type="submit" value="Tìm">
+	</form>
 </div>

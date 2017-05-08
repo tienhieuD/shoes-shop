@@ -18,7 +18,7 @@
 
 	include('connect.php');
 	$trang        = isset($_GET['page']) ? $_GET['page'] : 1;
-	$soSpMotTrang = 24;
+	$soSpMotTrang = 12;
 	$spBatDau     = ($trang - 1) * $soSpMotTrang;
 	
 	
@@ -26,6 +26,10 @@
 	{
 		$sql = "SELECT * FROM mathang WHERE MALOAIHANG = {$_GET['mlh']} ORDER BY mahang DESC LIMIT $spBatDau,$soSpMotTrang";
 		$tongSoSp     = $conn->query("SELECT * FROM mathang WHERE MALOAIHANG={$_GET['mlh']}")->num_rows;
+	}
+	else if(isset($_GET['search']))
+	{
+		$sql = "SELECT * FROM mathang WHERE MALOAIHANG LIKE '%{$_GET['search']}%' OR TENHANG LIKE '%{$_GET['search']}%' ORDER BY mahang DESC LIMIT $spBatDau,$soSpMotTrang";
 	}
 	else
 	{
@@ -49,42 +53,51 @@
 			echo "<a href='show-detail.php?masanpham={$mahang}'><div class='product-item'>
 						<div class='product-img' style='background-image: url(img/product/$mahang.jpg);'>
 							<div class='product-money'> {$money}đ </div>
-							<div class='product-addtocart'>MASP $mahang<!--<img src='img/icon/cart.png' height='13'/>--></div>
+							<div class='product-addtocart'>MASP $mahang<img src='img/icon/cart.png' height='13'/></div>
 						</div>
 						<div class='product-name'>
 							$tenhang
 						</div>
-					</div></a>";
+					</div>
+				</a>";
 		}
 	} 
 	else 
 	{
-		echo "0 results";
+		echo "<script>
+			alert('Không có kết quả nào cho tìm kiếm!');
+		</script>";
 	}
 
 	//Phân trang
-	$tongSoTrang = $tongSoSp / $soSpMotTrang;
-	echo '<div class="btn-group">';
-	for ($i = 0; $i < $tongSoTrang; $i++) 
+	if(isset($tongSoSp))
 	{
-		$page = $i + 1;
-		if(isset($_GET['mlh']))
-		{
-			if ($page != $trang)
-				echo '<a href="index.php?page=' . $page . '&mlh='. $_GET['mlh'] . '#main-menu">' . $page . '</a>';
-			else
-				echo '<a href="index.php?page=' . $page . '&mlh='. $_GET['mlh'] . '#main-menu" class="clicked-page">' . $page . '</a>';
-		}
-		else
-		{
-			if ($page != $trang)
-				echo '<a href="index.php?page=' . $page . '#main-menu">' . $page . '</a>';
-			else
-				echo '<a href="index.php?page=' . $page . '#main-menu" class="clicked-page">' . $page . '</a>';
-		}
+		$tongSoTrang = $tongSoSp / $soSpMotTrang;
 	}
-	echo '</div>';
-
+	if(isset($tongSoTrang))
+	{
+		echo '<div class="btn-group">';
+		for ($i = 0; $i < $tongSoTrang; $i++) 
+		{
+			$page = $i + 1;
+			if(isset($_GET['mlh']))
+			{
+				if ($page != $trang)
+					echo '<a href="index.php?page=' . $page . '&mlh='. $_GET['mlh'] . '#main-menu">' . $page . '</a>';
+				else
+					echo '<a href="index.php?page=' . $page . '&mlh='. $_GET['mlh'] . '#main-menu" class="clicked-page">' . $page . '</a>';
+			}
+			else
+			{
+				if ($page != $trang)
+					echo '<a href="index.php?page=' . $page . '#main-menu">' . $page . '</a>';
+				else
+					echo '<a href="index.php?page=' . $page . '#main-menu" class="clicked-page">' . $page . '</a>';
+			}
+		}
+		echo '</div>';
+	}
+	// ĐÓng kết nối
 	$conn->close();
 	unset($trang,$soSpMotTrang,$spBatDau,$tongSoSp,$sql,$result,$tongSoTrang);
 ?>

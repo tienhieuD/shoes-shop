@@ -120,7 +120,7 @@
 	  </tr>
 	
 	<?php
-		if ($kq->num_rows > 0)
+		if ( isset($kq) && $kq->num_rows > 0)
 		{
 			while($r = $kq->fetch_assoc())
 			{
@@ -180,7 +180,7 @@
 			
 		}
 	
-		if ($kq->num_rows > 0)
+		if (isset($kq) && $kq->num_rows > 0)
 		{
 			while($r = $kq->fetch_assoc())
 			{

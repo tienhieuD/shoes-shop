@@ -10,6 +10,7 @@ header("Pragma: no-cache");
 	<ul>
 		<li><a href='index.php'>Home</a>
 		</li>
+		<li><a href='csdl/csdl.php'>Database</a>
 		</li>
 		<li><a href='hoadon.php'>Hóa đơn</a>
 		</li>

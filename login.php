@@ -40,9 +40,9 @@
 				include('connect.php');
 				$taikhoan = $_POST['taikhoan'];
 				$matkhau = $_POST['matkhau'];
+				$mkenc = substr(md5($matkhau),1,12); 
 				
-				
-				$sql = " SELECT * FROM KHACHHANG WHERE EMAIL = '{$taikhoan}' AND MATKHAU = '{$matkhau}' ";
+				$sql = " SELECT * FROM KHACHHANG WHERE EMAIL = '{$taikhoan}' AND MATKHAU = '{$mkenc}' ";
 				$result = $conn -> query($sql);
 				
 				if ($result -> num_rows > 0) {
@@ -72,7 +72,20 @@
 					<table style=' position: relative; width: 300px; top: 35px; left: 50%; margin-left: -150px;'>
 						<tr><td>Tên đăng nhập:	</td><td><input type='text' name='taikhoan' required='required' placeholder='email@domain.com'/></td></tr>
 						<tr><td>Mật khẩu:		</td><td><input type='password' name='matkhau' required='required' placeholder='********'/></td></tr>
-						<tr><td colspan='2' align='right'><input type='submit' value='Đăng nhập'/></td></tr>
+						<tr>
+							<td><a href='reg.php' style='
+								border: 1px solid;
+								padding: 8px 19px;
+								font-size: 14px;
+								text-transform: uppercase;
+								border-radius: 3px;
+								display: inline-block;
+								text-align: center;
+								height: 19px;
+								margin-top: 2px;
+							'>Đăng ký</a></td>
+							<td align='right'><input type='submit' value='Đăng nhập'/></td>
+						</tr>
 					</table>
 					<input type='hidden' name='soluongmua' value='{$masanpham}'/>
 					<input type='hidden' name='masanpham' value='{$soluongmua}'/>
@@ -81,7 +94,6 @@
 			}
 		}
 	?>
-	
     <?php
 		require_once("footer.php"); 
 	?>

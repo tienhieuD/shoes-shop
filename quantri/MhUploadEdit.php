@@ -1,36 +1,34 @@
 ﻿<?php
 if(isset($_POST["submit"])) {
 	include('../connect.php');
+	$masp 	= $_POST['masanpham'];
 	$tenmh	= $_POST['tenmh'];
 	$ncc	= $_POST['ncc'];
 	$loai	= $_POST['loai'];
 	$slg	= $_POST['slg'];
 	$gia	= $_POST['gia'];
 	$mota	= $_POST['mota'];
-	$sql	= "INSERT INTO `mathang`
-				(`TENHANG`, `MANHACUNGCAP`, `MALOAIHANG`, `DSSOLUONG`, `GIA`, `MOTA`, `NGUNGCUNGCAP`, `DONVITINH`) 
-				VALUES ('$tenmh','$ncc','$loai','$slg','$gia','$mota','0', 'đôi')";
+	$sql	= "
+				UPDATE `mathang` SET 
+						`TENHANG`='$tenmh',
+						`MANHACUNGCAP`='$ncc',
+						`MALOAIHANG`='$loai',
+						`DSSOLUONG`='$slg',
+						`DONVITINH`='đôi',
+						`GIA`='$gia',
+						`MOTA`='$mota',
+						`NGUNGCUNGCAP`='0'
+						WHERE `MAHANG`='$masp'
+";
 	$conn->query($sql);
-	
-	$sql 	= "SELECT * FROM mathang WHERE TENHANG='$tenmh'
-										AND MANHACUNGCAP='$ncc'
-										AND MALOAIHANG='$loai'
-										AND DSSOLUONG='$slg'
-										AND GIA='$gia'
-										AND MOTA='$mota'
-										AND NGUNGCUNGCAP='0'
-										ORDER BY MAHANG DESC";
-	$kq = $conn->query($sql);
-	if ($kq->num_rows > 0)
-	{
-		$r = $kq->fetch_assoc();
-		$mamh = $r['MAHANG'];
-	}
+
+	$mamh = $_POST['masanpham'];
 }
 ?>
 
 
 <?php
+if(isset($_POST["submit"])) {
 	//$mamh = $_POST['mamh'];
 	$target_dir = "../img/product/";
 	$target_file = $target_dir . "$mamh.jpg";//basename($_FILES["fileToUpload"]["name"]);
@@ -77,4 +75,8 @@ if(isset($_POST["submit"])) {
 			echo "Sorry, there was an error uploading your file.";
 		}
 	}
+}
+
+		$URL= "../quantri.php#mh";
+		header("Location: $URL");
 ?>

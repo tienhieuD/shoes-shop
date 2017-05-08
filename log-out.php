@@ -1,5 +1,7 @@
 ﻿<?php session_start(); 
 unset($_SESSION['sstaikhoan']);
+$URL= "login.php";
+		header("Location: $URL");
 ?>
 
 <!DOCTYPE html>

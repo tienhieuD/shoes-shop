@@ -6,7 +6,7 @@
 	}
 	$sql="CREATE DATABASE IF NOT EXISTS `qlbangiay` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 	if (mysqli_query($con,$sql)){
-		echo "CSDL đã được tạo";
+		echo "CSDL QLBANGIAY đã được tạo";
 		echo "<br/><a href='taobang.php'>Bấm đây để tạo bảng và dữ liệu</a>";
 	}else{
 		echo "<br>Lỗi khi tạo CSDL: " . mysqli_connect_error($con);

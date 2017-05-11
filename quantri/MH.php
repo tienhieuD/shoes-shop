@@ -138,7 +138,7 @@ form{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)}input{outlin
 		</p>
 	</form>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="../require/jq.min.js"></script>
 	<script>
 	function readURL(input) {
 		if (input.files && input.files[0]) {

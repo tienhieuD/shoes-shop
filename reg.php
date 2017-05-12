@@ -15,6 +15,7 @@ form{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)}input{outlin
 			$mk2	=	$_POST['mk2'];
 			if ($mk1 != $mk2)
 				showForm("Mật khẩu không trùng nhau<br/>");
+			//if
 			else {
 				$tenkh	=	$_POST['tenkh'];
 				$dc		=	$_POST['dc'];

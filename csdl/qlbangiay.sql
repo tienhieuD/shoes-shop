@@ -246,7 +246,7 @@ CREATE TABLE `nhanvien` (
 
 INSERT INTO `nhanvien` (`MANHANVIEN`, `MATKHAU`, `TENNHANVIEN`, `NGAYSINH`, `NGAYLAMVIEC`, `DIACHI`, `DIENTHOAI`, `LUONGCOBAN`, `PHUCAP`) VALUES
 (1, '1', 'Nguyễn Văn An', '1997-05-01', '2017-05-01', 'Đông Ngạc, Từ Liêm, Hà Nội', '0987654312', 2000000, 120000),
-(2, '1', '', '0000-00-00', '0000-00-00', '', '', 0, 0);
+(2, '1', 'Nguyễn Văn An', '1997-05-01', '2017-05-01', 'Đông Ngạc, Từ Liêm, Hà Nội', '0987654312', 2000000, 120000),
 
 --
 -- Indexes for dumped tables

@@ -1,10 +1,10 @@
 ﻿<?php
-	$con=mysqli_connect("sql12.freemysqlhosting.net","sql12266394","umTXf9YMQ3");
+	$con=mysqli_connect("remotemysql.com","YsaajcRdeH","zbEsWNGZvk", "YsaajcRdeH");
 	if (mysqli_connect_errno($con)){
 		echo "<br>Không thể kết nối đến CSDL: " . mysqli_connect_error($con);
 		echo "<br>Không thể kết nối đến CSDL: Mã lỗi là " . mysqli_connect_errno($con);
 	}
-	$sql="CREATE DATABASE IF NOT EXISTS `sql12266394` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
+	$sql="CREATE DATABASE IF NOT EXISTS `YsaajcRdeH` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 	if (mysqli_query($con,$sql)){
 		echo "CSDL QLBANGIAY đã được tạo";
 		echo "<br/><a href='taobang.php'>Bấm đây để tạo bảng và dữ liệu</a>";

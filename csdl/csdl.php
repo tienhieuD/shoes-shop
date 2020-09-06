@@ -1,5 +1,5 @@
 ﻿<?php
-	$con=mysqli_connect("remotemysql.com","YsaajcRdeH","zbEsWNGZvk", "YsaajcRdeH");
+	$con=mysqli_connect("remotemysql.com","YsaajcRdeH","zbEsWNGZvk", "YsaajcRdeH", 3306);
 	if (mysqli_connect_errno($con)){
 		echo "<br>Không thể kết nối đến CSDL: " . mysqli_connect_error($con);
 		echo "<br>Không thể kết nối đến CSDL: Mã lỗi là " . mysqli_connect_errno($con);
